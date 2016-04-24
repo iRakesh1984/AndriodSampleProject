@@ -4,16 +4,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
 
     EditText txtPersonName , txtMobileNumber, txtEmailAddress , txtPassword;
-     Button submitButton = (Button) findViewById(R.id.btnSubmit);
+    TextView activeField;
+
+    Button submitButton;
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,9 @@ public class MainActivity extends ActionBarActivity {
         txtPassword = (EditText) findViewById(R.id.txtPassword);
 
 
+        activeField = (TextView) findViewById(R.id.textView);
+
+        submitButton = (Button) findViewById(R.id.btnSubmit);
 
 
         boolean allMandatoryFieldFilled = false;
@@ -33,11 +41,33 @@ public class MainActivity extends ActionBarActivity {
         txtPersonName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.v(TAG,"beforeTextChanged");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                activeField.setText("Editing Person Name");
+                checkSubmitButtonToBeEnabled();
+                Log.v(TAG,"onTextChanged");
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                activeField.setText("Registration Form");
+                Log.v(TAG,"afterTextChanged");
+
+            }
+        });
+        txtMobileNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                activeField.setText("Editing Mobile Number");
                 checkSubmitButtonToBeEnabled();
             }
 
@@ -46,54 +76,40 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
-//        txtMobileNumber.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                checkSubmitButtonToBeEnabled();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//        txtEmailAddress.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                checkSubmitButtonToBeEnabled();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//        txtPassword.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                checkSubmitButtonToBeEnabled();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
+        txtEmailAddress.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                activeField.setText("Editing Email Address");
+                checkSubmitButtonToBeEnabled();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        txtPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                activeField.setText("Editing password");
+                checkSubmitButtonToBeEnabled();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
 
