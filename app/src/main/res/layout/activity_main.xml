@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:id="@+id/Linear">
+    android:id="@+id/Linear"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,6 +18,36 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textColor="@color/background_floating_material_dark" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|left"
+        android:id="@+id/radio_g"
+        android:focusableInTouchMode="false">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:id="@+id/male"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Female"
+            android:id="@+id/female"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="others"
+            android:id="@+id/other"
+            android:layout_gravity="left"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
 
     <EditText
         android:layout_width="fill_parent"
@@ -76,7 +107,8 @@
         android:text="Submit"
         android:id="@+id/btnSubmit"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp" />
+
 </LinearLayout>

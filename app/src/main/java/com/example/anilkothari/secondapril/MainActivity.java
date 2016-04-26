@@ -7,15 +7,22 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
 
     EditText txtPersonName , txtMobileNumber, txtEmailAddress , txtPassword;
     TextView activeField;
+
+    RadioGroup radioGroup;
+    RadioButton radioMale,radioFemale,radioOthers,sampleButton;
 
     Button submitButton;
     private static final String TAG = "MyActivity";
@@ -112,7 +119,18 @@ public class MainActivity extends ActionBarActivity {
         });
 
 
+        radioGroup = (RadioGroup) findViewById(R.id.radio_g);
+        radioMale = (RadioButton) findViewById(R.id.male);
+        radioFemale = (RadioButton) findViewById(R.id.female);
+        radioOthers = (RadioButton) findViewById(R.id.other);
 
+
+    }
+
+    public void onRadioButtonClicked(View v) {
+            int selected_id  = radioGroup.getCheckedRadioButtonId();
+            sampleButton = (RadioButton) findViewById(selected_id);
+        Toast.makeText(MainActivity.this,sampleButton.getText().toString(),Toast.LENGTH_SHORT);
      }
 
     public void checkSubmitButtonToBeEnabled(){
