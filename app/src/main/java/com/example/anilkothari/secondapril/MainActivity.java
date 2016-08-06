@@ -1,5 +1,6 @@
 package com.example.anilkothari.secondapril;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
+    public static final String EDITING_PASSWORD = "Editing password";
     EditText txtPersonName , txtMobileNumber, txtEmailAddress , txtPassword;
     TextView activeField;
 
@@ -32,19 +34,40 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtPersonName = (EditText) findViewById(R.id.txtName);
+        txtPersonName = (EditText)findViewById(R.id.txtName);
         txtMobileNumber = (EditText) findViewById(R.id.txtPhoneNumber);
         txtEmailAddress = (EditText) findViewById(R.id.txtEmailAddress);
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
-
-
-        activeField = (TextView) findViewById(R.id.textView);
+        txtPassword = (EditText)findViewById(R.id.txtPassword);
+        activeField = (TextView)findViewById(R.id.textView);
 
         submitButton = (Button) findViewById(R.id.btnSubmit);
+        submitButton.setEnabled(false);
+        addClickListner();
+        addSubmitButtonListener();
+
+        radioGroup = (RadioGroup) findViewById(R.id.radio_g);
+        radioMale = (RadioButton) findViewById(R.id.male);
+        radioFemale = (RadioButton) findViewById(R.id.female);
+        radioOthers = (RadioButton) findViewById(R.id.other);
 
 
-        boolean allMandatoryFieldFilled = false;
+    }
 
+    private void addSubmitButtonListener(){
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(),MainActivity2.class);
+                intent.putExtra("person-name", txtPersonName.getText().toString());
+                intent.putExtra("person-email",txtEmailAddress.getText().toString());
+                intent.putExtra("person-ph",txtMobileNumber.getText().toString());
+                intent.putExtra("person-pwd",txtPassword.getText().toString());
+                startActivity(intent);
+            }
+        });
+    }
+    private void addClickListner() {
         txtPersonName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -55,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 activeField.setText("Editing Person Name");
                 checkSubmitButtonToBeEnabled();
-                Log.v(TAG,"onTextChanged");
+                Log.v(TAG, "onTextChanged");
 
             }
 
@@ -108,7 +131,7 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                activeField.setText("Editing password");
+                activeField.setText(EDITING_PASSWORD);
                 checkSubmitButtonToBeEnabled();
             }
 
@@ -118,20 +141,13 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-
-        radioGroup = (RadioGroup) findViewById(R.id.radio_g);
-        radioMale = (RadioButton) findViewById(R.id.male);
-        radioFemale = (RadioButton) findViewById(R.id.female);
-        radioOthers = (RadioButton) findViewById(R.id.other);
-
-
     }
 
     public void onRadioButtonClicked(View v) {
-            int selected_id  = radioGroup.getCheckedRadioButtonId();
-            sampleButton = (RadioButton) findViewById(selected_id);
+        int selected_id  = radioGroup.getCheckedRadioButtonId();
+        sampleButton = (RadioButton) findViewById(selected_id);
         Toast.makeText(MainActivity.this,sampleButton.getText().toString(),Toast.LENGTH_SHORT);
-     }
+    }
 
     public void checkSubmitButtonToBeEnabled(){
 
